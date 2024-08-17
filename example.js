@@ -1,7 +1,6 @@
 const express = require('express');
-const createRateLimiter = require('./index');
 const Redis = require('ioredis');
-
+const {createRateLimiter} = require('nodejs-rate-limiter-redis')
 const app = express();
 
 const redisClient = new Redis('redis://connectionstring', {
