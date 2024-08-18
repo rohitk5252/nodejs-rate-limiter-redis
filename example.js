@@ -3,16 +3,18 @@ const Redis = require('ioredis');
 const {createRateLimiter} = require('nodejs-rate-limiter-redis')
 const app = express();
 
-const redisClient = new Redis('redis://connectionstring', {
-    password: 'redispassword' || undefined,
+const redisClient = new Redis('YOUR_REDIS_URL', {
+    password: 'YOUR_REDIS_PASS' || undefined,
     connectTimeout: 5000,
     maxRetriesPerRequest: null,
   })
 
 const rateLimiter = createRateLimiter({
-    redisClient,
-    bucketSize: 10,
-    refillRate: 1, // 2 tokens per second
+    redisClient,     // Default :- Uses process/serevr memory if not passed ( Not recommended )
+    bucketSize: 10, // Initial Bucket Size
+    refillRate: 1, //  Tokens added per second,
+    message: "You have reached todays limit" ,
+    skip: false, // Bypass Rate Limiting , determine whether or not this request consumes token from client’s bucket
 });
 
 app.use(rateLimiter);
