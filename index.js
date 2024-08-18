@@ -67,4 +67,4 @@ function createRateLimiter(options) {
         }
     };
 }
-export default createRateLimiter
+module.exports = { createRateLimiter }
