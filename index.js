@@ -84,7 +84,6 @@ function createRateLimiter(options) {
 
         let bucket = await getBucket(userId, redisClient)
         
-        console.log("bucket", bucket, userId)
         if (!bucket) {
             // Initialize the bucket if it doesn't exist
             bucket = createTokenBucket(bucketSize, refillRate);
